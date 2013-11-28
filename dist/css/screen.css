@@ -102,6 +102,10 @@ h3 {
     padding: 10px 0 10px 0;
 }
 
+i {
+    font-style: italic;
+}
+
 .heading_with_menu {
     float: none;
     clear: both;
