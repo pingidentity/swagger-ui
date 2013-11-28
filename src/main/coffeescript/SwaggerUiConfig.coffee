@@ -37,4 +37,14 @@ SwaggerUiConfig =
   ###
   showOptionalPropertiesTag: false
 
+  ###
+    Swaggers Sandbox will not work if the browser window's location host does
+    not match the API's base URL, because of CSRF prevention. Set to true if
+    the API docs and API rest service share the same domain. This will force
+    Swagger UI to use the same hostname as window.location. Only really needed
+    for a slightly better user experience. Otherwise the user should go to the
+    correct domain.
+  ###
+  apiDocsAndRestOnSameServer: true
+
 window.SwaggerUiConfig = SwaggerUiConfig

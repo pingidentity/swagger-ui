@@ -979,6 +979,20 @@
         _this = this;
       this.type = type;
       this.url = url;
+      if (SwaggerUiConfig.apiDocsAndRestOnSameServer) {
+        var tempUrl;
+        var schemeDelim = "://";
+        var index = url.indexOf(schemeDelim);
+        if (index !== -1) {
+          index = url.indexOf("/", index + schemeDelim.length);
+          tempUrl = location.protocol + "//" + location.host;
+          if (index !== -1) {
+            tempUrl += url.substring(index);
+          }
+
+          this.url = tempUrl;
+        }
+      }
       this.params = params;
       this.opts = opts;
       this.successCallback = successCallback;
