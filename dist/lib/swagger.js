@@ -447,6 +447,7 @@
       this.name = obj.id != null ? obj.id : modelName;
       this.properties = [];
       this.subTypes = [];
+      this.desc = obj.description
       for (propertyName in obj.properties) {
         if (obj.required != null) {
           for (value in obj.required) {
@@ -511,12 +512,14 @@
         prop = _ref[_i];
         propertiesStr.push(prop.toString());
       }
+      weak =  '<span class="weak">';
       strong = '<span class="strong">';
       stronger = '<span class="stronger">';
       strongClose = '</span>';
-      classOpen = strong + this.name + ' {' + strongClose;
+      weakClose = strongClose;
+      classOpen = this.desc != null ? strong + this.name + strongClose + weak + ' - ' + this.desc + weakClose + strong + ' {' + strongClose : strong + this.name + ' {' + strongClose;
       classClose = strong + '}' + strongClose;
-      returnVal = classOpen + '<div>' + propertiesStr.join(',</div><div>') + '</div>' + classClose;
+      returnVal = classOpen + '<div>' + propertiesStr.join('</div><div>') + '</div>' + classClose;
       if (!modelsToIgnore) {
         modelsToIgnore = [];
       }
@@ -628,6 +631,7 @@
   })();
 
   SwaggerSubType = (function() {
+
     function SwaggerSubType(modelName) {
       this.name = modelName;
     }
@@ -635,7 +639,7 @@
     return SwaggerSubType;
     
   })();
-  
+
   SwaggerOperation = (function() {
     function SwaggerOperation(nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces) {
       var parameter, v, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
@@ -1271,7 +1275,7 @@
   this.SwaggerRequest = SwaggerRequest;
 
   this.SwaggerModelProperty = SwaggerModelProperty;
-  
+
   this.SwaggerSubType = SwaggerSubType;
 
   this.ApiKeyAuthorization = ApiKeyAuthorization;
