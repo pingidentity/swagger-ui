@@ -4,23 +4,29 @@
 		{{#if isFile}}
 			<input type="file" name='{{name}}'/>
 		{{else}}
-			{{#if defaultValue}}
-				<textarea class='body-textarea' placeholder='(required)' name='{{name}}'>{{defaultValue}}</textarea>
+			{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
+			<textarea class='body-textarea' placeholder='(required)' name='{{name}}'>{{defaultValue}}</textarea>
 			{{else}}
-				<textarea class='body-textarea' placeholder='(required)' name='{{name}}'></textarea>
-				<br />
-				<div class="parameter-content-type" />
-			{{/if}}
+			<textarea class='body-textarea' placeholder='{{type}} (required)' name='{{name}}'>{{defaultValue}}</textarea>
+			{{/ifSwaggerUiConfig}}	
+			<br />
+			{{#unlessSwaggerUiConfig "showParameterDataTypeColumn"}}
+			<a class="paste-model-template" href="#">Paste model template<img src="images/paste_plain.png" style="margin-left: 4px"/></a>
+			<br>
+			{{/unlessSwaggerUiConfig}}
+			{{#ifSwaggerUiConfig "showParameterContentType"}}
+			<div class="parameter-content-type" />
+			{{/ifSwaggerUiConfig}}
 		{{/if}}
 	{{else}}
 		{{#if isFile}}
 			<input class='parameter' class='required' type='file' name='{{name}}'/>
 		{{else}}
-			{{#if defaultValue}}
-				<input class='parameter required' minlength='1' name='{{name}}' placeholder='(required)' type='text' value='{{defaultValue}}'/>
+			{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
+			<input class='parameter required' minlength='1' name='{{name}}' placeholder='(required)' type='text' value='{{defaultValue}}'/>
 			{{else}}
-				<input class='parameter required' minlength='1' name='{{name}}' placeholder='(required)' type='text' value=''/>
-			{{/if}}
+			<input class='parameter required' minlength='1' name='{{name}}' placeholder='{{type}} (required)' type='text' value='{{defaultValue}}'/>
+			{{/ifSwaggerUiConfig}}	
 		{{/if}}
 	{{/if}}
 </td>
@@ -28,4 +34,6 @@
 	<strong>{{{description}}}</strong>
 </td>
 <td>{{{paramType}}}</td>
+{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
 <td><span class="model-signature"></span></td>
+{{/ifSwaggerUiConfig}}

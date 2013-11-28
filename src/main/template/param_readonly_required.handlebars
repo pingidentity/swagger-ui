@@ -1,7 +1,11 @@
 <td class='code required'>{{name}}</td>
 <td>
     {{#if isBody}}
+        {{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
         <textarea class='body-textarea'  readonly='readonly' placeholder='(required)' name='{{name}}'>{{defaultValue}}</textarea>
+        {{else}}
+        <textarea class='body-textarea'  readonly='readonly' placeholder='{{type}} (required)' name='{{name}}'>{{defaultValue}}</textarea>
+        {{/ifSwaggerUiConfig}}
     {{else}}
         {{#if defaultValue}}
             {{defaultValue}}
@@ -12,4 +16,6 @@
 </td>
 <td>{{{description}}}</td>
 <td>{{{paramType}}}</td>
+{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
 <td><span class="model-signature"></span></td>
+{{/ifSwaggerUiConfig}}

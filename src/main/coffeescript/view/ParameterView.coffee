@@ -1,4 +1,8 @@
 class ParameterView extends Backbone.View
+  events: {
+  'click a.paste-model-template'       : 'snippetToTextArea'
+  }
+
   initialize: ->
 
   render: ->
@@ -55,3 +59,10 @@ class ParameterView extends Backbone.View
           Handlebars.templates.param_required
         else
           Handlebars.templates.param
+
+  # handler for snippet to text area
+  snippetToTextArea: (e) ->
+    e?.preventDefault()
+    textArea = $('textarea', @el)
+    if $.trim(textArea.val()) == ''
+      textArea.val(@model.sampleJSON)

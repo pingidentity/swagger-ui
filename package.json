@@ -18,7 +18,7 @@
   "license": "Apache",
   "readmeFilename": "README.md",
   "dependencies": {
-    "coffee-script": "~1.5.0",
+    "coffee-script": "~1.6.3",
     "handlebars": "~1.0.10"
   }
 }

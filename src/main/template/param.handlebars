@@ -6,25 +6,33 @@
 			<input type="file" name='{{name}}'/>
 			<div class="parameter-content-type" />
 		{{else}}
-			{{#if defaultValue}}
-				<textarea class='body-textarea' name='{{name}}'>{{defaultValue}}</textarea>
+			{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
+			<textarea class='body-textarea' name='{{name}}'>{{defaultValue}}</textarea>
 			{{else}}
-				<textarea class='body-textarea' name='{{name}}'></textarea>
-				<br />
-				<div class="parameter-content-type" />
-			{{/if}}
+			<textarea class='body-textarea' placeholder='{{type}}' name='{{name}}'>{{defaultValue}}</textarea>
+			{{/ifSwaggerUiConfig}}
+			<br />
+			{{#unlessSwaggerUiConfig "showParameterDataTypeColumn"}}
+			<a class="paste-model-template" href="#">Paste model template<img src="images/paste_plain.png" style="margin-left: 4px"/></a>
+			<br>
+			{{/unlessSwaggerUiConfig}}
+			{{#ifSwaggerUiConfig "showParameterContentType"}}
+			<div class="parameter-content-type" />
+			{{/ifSwaggerUiConfig}}
 		{{/if}}
 	{{else}}
-		{{#if defaultValue}}
-			<input class='parameter' minlength='0' name='{{name}}' placeholder='' type='text' value='{{defaultValue}}'/>
+		{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
+		<input class='parameter' minlength='0' name='{{name}}' placeholder='' type='text' value='{{defaultValue}}'/>
 		{{else}}
-			<input class='parameter' minlength='0' name='{{name}}' placeholder='' type='text' value=''/>
-		{{/if}}
+		<input class='parameter' minlength='0' name='{{name}}' placeholder='{{type}}' type='text' value='{{defaultValue}}'/>
+		{{/ifSwaggerUiConfig}}
 	{{/if}}
 
 </td>
 <td>{{{description}}}</td>
 <td>{{{paramType}}}</td>
+{{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
 <td>
 	<span class="model-signature"></span>
 </td>
+{{/ifSwaggerUiConfig}}

@@ -35,6 +35,7 @@
       if (options.success != null) {
         this.success = options.success;
       }
+
       this.failure = options.failure != null ? options.failure : function() {};
       this.progress = options.progress != null ? options.progress : function() {};
       if (options.success != null) {
@@ -613,7 +614,7 @@
       var req, str;
       req = this.required ? 'propReq' : 'propOpt';
       str = '<span class="propName ' + req + '">' + this.name + '</span> (<span class="propType">' + this.dataTypeWithRef + '</span>';
-      if (!this.required) {
+      if (!this.required && SwaggerUiConfig.showOptionalPropertiesTag) {
         str += ', <span class="propOptKey">optional</span>';
       }
       str += ')';
@@ -642,7 +643,7 @@
 
   SwaggerOperation = (function() {
     function SwaggerOperation(nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces) {
-      var parameter, v, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
+      var parameter, v, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3, _modelsToIgnore = [],
         _this = this;
       this.nickname = nickname;
       this.path = path;
@@ -672,9 +673,11 @@
       if (((_ref = this.type) != null ? _ref.toLowerCase() : void 0) === 'void') {
         this.type = void 0;
       }
+
       if (this.type != null) {
-        this.responseClassSignature = this.getSignature(this.type, this.resource.models);
-        this.responseSampleJSON = this.getSampleJSON(this.type, this.resource.models);
+        this.isResponseClassPrimitive = this.isPrimitive(this.type, this.resource.models);
+        this.responseClassSignature = this.getSignature(this.type, this.isResponseClassPrimitive, this.resource.models, _modelsToIgnore);
+        this.responseSampleJSON = this.getSampleJSON(this.type, this.isResponseClassPrimitive, this.resource.models);
       }
       this.responseMessages = this.responseMessages || [];
       _ref1 = this.parameters;
@@ -686,8 +689,13 @@
           parameter.allowableValues = {};
           parameter.allowableValues.values = ["true", "false"];
         }
-        parameter.signature = this.getSignature(type, this.resource.models);
-        parameter.sampleJSON = this.getSampleJSON(type, this.resource.models);
+        if (SwaggerUiConfig.showParameterDataTypeColumn) {
+          _modelsToIgnore = [] 
+        }
+
+        parameter.isPrimitive = this.isPrimitive(type, this.resource.models);
+        parameter.signature = this.getSignature(type, parameter.isPrimitive, this.resource.models, _modelsToIgnore);
+        parameter.sampleJSON = this.getSampleJSON(type, parameter.isPrimitive, this.resource.models);
         if (parameter["enum"] != null) {
           parameter.isList = true;
           parameter.allowableValues = {};
@@ -750,25 +758,36 @@
       }
     };
 
-    SwaggerOperation.prototype.getSignature = function(type, models) {
+    SwaggerOperation.prototype.isPrimitive = function(type, models) {
       var isPrimitive, listType;
       listType = this.isListType(type);
       isPrimitive = ((listType != null) && models[listType]) || (models[type] != null) ? false : true;
+      return isPrimitive;
+    };
+
+    SwaggerOperation.prototype.getSignature = function(type, isPrimitive, models, modelsToIgnore) {
+      var listType;
+      listType = this.isListType(type);
       if (isPrimitive) {
         return type;
-      } else {
+      } else {  
         if (listType != null) {
-          return models[listType].getMockSignature();
+          if (modelsToIgnore.indexOf(models[listType]) !== -1) {
+            return null;
+          }
+          return models[listType].getMockSignature(modelsToIgnore);
         } else {
-          return models[type].getMockSignature();
+          if (modelsToIgnore.indexOf(models[type]) !== -1) {
+            return null;
+          }
+          return models[type].getMockSignature(modelsToIgnore);
         }
       }
     };
 
-    SwaggerOperation.prototype.getSampleJSON = function(type, models) {
-      var isPrimitive, listType, val;
+    SwaggerOperation.prototype.getSampleJSON = function(type, isPrimitive, models) {
+      var listType, val;
       listType = this.isListType(type);
-      isPrimitive = ((listType != null) && models[listType]) || (models[type] != null) ? false : true;
       val = isPrimitive ? void 0 : (listType != null ? models[listType].createJSONSample() : models[type].createJSONSample());
       if (val) {
         val = listType ? [val] : val;

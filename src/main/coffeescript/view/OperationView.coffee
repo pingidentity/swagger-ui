@@ -14,16 +14,21 @@ class OperationView extends Backbone.View
 
     $(@el).html(Handlebars.templates.operation(@model))
 
-    if @model.responseClassSignature and @model.responseClassSignature != 'string'
+    operationModels = ''
+
+    if @model.responseClassSignature and !@model.isResponseClassPrimitive
       signatureModel =
         sampleJSON: @model.responseSampleJSON
         isParam: false
-        signature: @model.responseClassSignature
-        
+        signature: if SwaggerUiConfig.showParameterDataTypeColumn then @model.responseClassSignature else "<span class='strong'>#{@model.type}</span>"
+    
+      unless SwaggerUiConfig.showParameterDataTypeColumn
+        operationModels = @model.responseClassSignature
+
       responseSignatureView = new SignatureView({model: signatureModel, tagName: 'div'})
-      $('.model-signature', $(@el)).append responseSignatureView.render().el
+      $('#response-class', $(@el)).append responseSignatureView.render().el
     else
-      $('.model-signature', $(@el)).html(@model.type)
+      $('#response-class', $(@el)).html(@model.type)
 
     contentTypeModel =
       isParam: false
@@ -38,6 +43,12 @@ class OperationView extends Backbone.View
           console.log "set content type "
           contentTypeModel.consumes = 'multipart/form-data'
 
+      unless param.isPrimitive or SwaggerUiConfig.showParameterDataTypeColumn
+        unless param.signature == null
+          if operationModels != ''
+            operationModels += '<br/>'
+          operationModels += param.signature
+
     responseContentTypeView = new ResponseContentTypeView({model: contentTypeModel})
     $('.response-content-type', $(@el)).append responseContentTypeView.render().el
 
@@ -46,6 +57,11 @@ class OperationView extends Backbone.View
 
     # Render each response code
     @addStatusCode statusCode for statusCode in @model.responseMessages
+
+    if operationModels == ''
+      operationModels = '(None)'
+    
+    $('#operation-models', $(@el)).html(operationModels)
 
     @
 

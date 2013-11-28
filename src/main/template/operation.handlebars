@@ -21,12 +21,20 @@
         <h4>Implementation Notes</h4>
         <p>{{{notes}}}</p>
         {{/if}}
+        {{#unlessSwaggerUiConfig "moveSandboxToTop"}}
         {{#if type}}
           <h4>Response Class</h4>
-          <p><span class="model-signature" /></p>
+          <p><span id="response-class" class="model-signature" /></p>
+          {{#ifSwaggerUiConfig "showResponseContentType"}}
           <br/>
           <div class="response-content-type" />
+          {{/ifSwaggerUiConfig}}
+          {{#unlessSwaggerUiConfig "showParameterDataTypeColumn"}}
+          <h4>Operation Models</h4>
+          <p><div class="model-signature"><div class="signature-container"><div id="operation-models" class="description"/></div></div></p>
+          {{/unlessSwaggerUiConfig}}
         {{/if}}
+        {{/unlessSwaggerUiConfig}}
         <form accept-charset='UTF-8' class='sandbox'>
           <div style='margin:0;padding:0;display:inline'></div>
           {{#if parameters}}
@@ -34,11 +42,18 @@
           <table class='fullwidth'>
           <thead>
             <tr>
+            {{#ifSwaggerUiConfig "showParameterDataTypeColumn"}}
             <th style="width: 100px; max-width: 100px">Parameter</th>
             <th style="width: 310px; max-width: 310px">Value</th>
             <th style="width: 200px; max-width: 200px">Description</th>
             <th style="width: 100px; max-width: 100px">Parameter Type</th>
             <th style="width: 220px; max-width: 230px">Data Type</th>
+            {{else}}
+            <th style="width: 100px; max-width: 100px">Parameter</th>
+            <th style="width: 530px; max-width: 530px">Value</th>
+            <th style="width: 200px; max-width: 200px">Description</th>
+            <th style="width: 100px; max-width: 100px">Parameter Type</th>
+            {{/ifSwaggerUiConfig}}
             </tr>
           </thead>
           <tbody class="operation-params">
@@ -80,6 +95,20 @@
           <h4>Response Headers</h4>
           <div class='block response_headers'></div>
         </div>
+        {{#ifSwaggerUiConfig "moveSandboxToTop"}}
+        {{#if type}}
+          <br/>
+          <h4>Response Class</h4>
+          <p><span id="response-class" class="model-signature" /></p>
+          {{#ifSwaggerUiConfig "showResponseContentType"}}
+          <div class="response-content-type" />
+          {{/ifSwaggerUiConfig}}
+          {{#unlessSwaggerUiConfig "showParameterDataTypeColumn"}}
+          <h4>Operation Models</h4>
+          <p><div class="model-signature"><div class="signature-container"><div id="operation-models" class="description"/></div></div></p>
+          {{/unlessSwaggerUiConfig}}
+        {{/if}}
+        {{/ifSwaggerUiConfig}}
       </div>
     </li>
   </ul>
