@@ -38,9 +38,6 @@
 
       this.failure = options.failure != null ? options.failure : function() {};
       this.progress = options.progress != null ? options.progress : function() {};
-      if (options.success != null) {
-        this.build();
-      }
     }
 
     SwaggerApi.prototype.build = function() {
