@@ -146,6 +146,27 @@ var Docs = {
 		elem.slideUp();
 	},
 
+	toggleOperationsForResource: function(resource) {
+		var elem = $('li#resource_' + Docs.escapeResourceName(resource) + ' ul.endpoints');
+		if (elem.is(':visible')) {
+			var aOperationVisible = false;
+			$('li.operation div.content').each(function() {
+				if ($(this).is(':visible')) {
+					aOperationVisible = true;
+					return false;
+				}
+			});
+
+			if (aOperationVisible) {
+				Docs.collapseOperationsForResource(resource);
+			} else {
+				Docs.expandOperationsForResource(resource);
+			}
+		} else {
+			Docs.collapseOperationsForResource(resource);
+		}
+	},
+
 	expandOperationsForResource: function(resource) {
 		// Make sure the resource container is open..
 		Docs.expandEndpointListForResource(resource);

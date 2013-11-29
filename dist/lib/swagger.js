@@ -112,10 +112,6 @@
       }
       if (response.basePath) {
         this.basePath = response.basePath;
-      } else if (this.url.indexOf('?') > 0) {
-        this.basePath = this.url.substring(0, this.url.lastIndexOf('?'));
-      } else {
-        this.basePath = this.url;
       }
       if (isApi) {
         newName = response.resourcePath.replace(/\//g, '');
@@ -164,10 +160,6 @@
       }
       if (response.basePath) {
         this.basePath = response.basePath;
-      } else if (this.url.indexOf('?') > 0) {
-        this.basePath = this.url.substring(0, this.url.lastIndexOf('?'));
-      } else {
-        this.basePath = this.url;
       }
       if (isApi) {
         newName = response.resourcePath.replace(/\//g, '');
@@ -293,7 +285,7 @@
         if (this.path.substring(0, 4) === 'http') {
           this.url = this.path.replace('{format}', 'json');
         } else {
-          this.url = this.api.basePath + this.path.replace('{format}', 'json');
+          this.url = this.api.url + this.path.replace('{format}', 'json');
         }
         this.api.progress('fetching resource ' + this.name + ': ' + this.url);
         obj = {
@@ -307,6 +299,9 @@
             response: function(rawResponse) {
               var response;
               response = JSON.parse(rawResponse.content.data);
+              if (response.basePath && !_this.api.basePath) {
+                _this.api.basePath = response.basePath; //set base path to our api service (as opposed to base path of our api-docs)
+              }
               return _this.addApiDeclaration(response);
             }
           }

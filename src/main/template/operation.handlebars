@@ -17,9 +17,11 @@
         </ul>
       </div>
       <div class='content' id='{{resourceName}}_{{nickname}}_{{method}}_{{number}}_content' style='display:none'>
-        {{#if notes}}
         <h4>Implementation Notes</h4>
+        {{#if notes}}
         <p>{{{notes}}}</p>
+        {{else}}
+        <p>{{{summary}}}</p>
         {{/if}}
         {{#unlessSwaggerUiConfig "moveSandboxToTop"}}
         {{#if type}}
