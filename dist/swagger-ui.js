@@ -1500,7 +1500,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         options = {};
       }
       Handlebars.registerHelper('ifSwaggerUiConfig', function(condName, block) {
-        console.log('condName ' + SwaggerUiConfig[condName]);
         if (SwaggerUiConfig[condName]) {
           return block.fn(this);
         } else {

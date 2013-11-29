@@ -12,7 +12,6 @@ class SwaggerUi extends Backbone.Router
   # SwaggerUi accepts all the same options as SwaggerApi
   initialize: (options={}) ->
     Handlebars.registerHelper 'ifSwaggerUiConfig', (condName, block) ->
-      console.log 'condName ' + SwaggerUiConfig[condName]
       if SwaggerUiConfig[condName]
         block.fn this
       else
