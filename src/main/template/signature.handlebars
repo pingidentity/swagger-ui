@@ -10,7 +10,11 @@
         {{{signature}}}
     </div>
 
+    {{#if isParam}}
+    <div class="snippet code-clickable">
+    {{else}}
     <div class="snippet">
+    {{/if}}
         <pre><code>{{sampleJSON}}</code></pre>
         <small class="notice"></small>
     </div>

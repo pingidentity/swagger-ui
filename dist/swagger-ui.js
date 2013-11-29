@@ -1401,14 +1401,28 @@ function program4(depth0,data) {
 templates['signature'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, functionType="function", self=this, escapeExpression=this.escapeExpression;
 
+function program1(depth0,data) {
+  
+  
+  return "\n    <div class=\"snippet code-clickable\">\n    ";
+  }
+
+function program3(depth0,data) {
+  
+  
+  return "\n    <div class=\"snippet\">\n    ";
+  }
 
   buffer += "<div>\n<ul class=\"signature-nav\">\n    <li><a class=\"description-link\" href=\"#\">Model</a></li>\n    <li><a class=\"snippet-link\" href=\"#\">Model Schema</a></li>\n</ul>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"description\">\n        ";
   if (stack1 = helpers.signature) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.signature; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </div>\n\n    <div class=\"snippet\">\n        <pre><code>";
+  buffer += "\n    </div>\n\n    ";
+  stack1 = helpers['if'].call(depth0, depth0.isParam, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        <pre><code>";
   if (stack1 = helpers.sampleJSON) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.sampleJSON; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)

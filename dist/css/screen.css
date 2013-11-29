@@ -1663,10 +1663,10 @@ body ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operatio
     line-height: 1.2em;
     overflow: auto;
     max-height: 200px;
-    cursor: pointer;
 }
 
-.model-signature pre:hover {
+.model-signature .code-clickable pre:hover{
+    cursor: pointer;
     background-color: #ffffdd;
 }
 
