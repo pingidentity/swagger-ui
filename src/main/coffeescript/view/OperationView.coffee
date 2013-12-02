@@ -27,8 +27,10 @@ class OperationView extends Backbone.View
 
       responseSignatureView = new SignatureView({model: signatureModel, tagName: 'div'})
       $('#response-class', $(@el)).append responseSignatureView.render().el
-    else
+    else if @model.type
       $('#response-class', $(@el)).html(@model.type)
+    else
+      $('#response-class', $(@el)).html('(None)')
 
     contentTypeModel =
       isParam: false
@@ -111,7 +113,16 @@ class OperationView extends Backbone.View
           map[o.name] = val
 
       opts.responseContentType = $("div select[name=responseContentType]", $(@el)).val()
+      unless opts.responseContentType
+        if @model.produces and @model.produces.length > 0 
+          # dropdown might not exist because we don't show it. default to first content type from operation
+          opts.responseContentType = @model.produces[0]
+
       opts.requestContentType = $("div select[name=parameterContentType]", $(@el)).val()
+      unless opts.requestContentType
+        if @model.consumes and @model.consumes.length > 0 
+          # dropdown might not exist because we don't show it. default to first content type from operation
+          opts.requestContentType = @model.consumes[0]
 
       $(".response_throbber", $(@el)).show()
 

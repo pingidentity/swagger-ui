@@ -205,6 +205,18 @@ var Docs = {
 };
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['___operation___handlebars___AxmOhb'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "";
+
+
+  return buffer;
+  });
+})();
+
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['content_type'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -359,106 +371,83 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
-  var buffer = "", stack1;
+  var buffer = "", stack1, stack2, options;
+  buffer += "\n        <h4>Response Class</h4>\n        <p><span id=\"response-class\" class=\"model-signature\" /></p>\n        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
-  stack1 = helpers['if'].call(depth0, depth0.type, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   return buffer;
   }
 function program6(depth0,data) {
   
-  var buffer = "", stack1, stack2, options;
-  buffer += "\n          <h4>Response Class</h4>\n          <p><span id=\"response-class\" class=\"model-signature\" /></p>\n          ";
-  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
-  if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          ";
-  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
-  if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        ";
-  return buffer;
-  }
-function program7(depth0,data) {
   
-  
-  return "\n          <br/>\n          <div class=\"response-content-type\" />\n          ";
+  return "\n        <div class=\"response-content-type\" />\n        ";
   }
 
-function program9(depth0,data) {
+function program8(depth0,data) {
   
   
-  return "\n          <h4>Operation Models</h4>\n          <p><div class=\"model-signature\"><div class=\"signature-container\"><div id=\"operation-models\" class=\"description\"/></div></div></p>\n          ";
+  return "\n        <h4>Operation Models</h4>\n        <p><div class=\"model-signature\"><div class=\"signature-container\"><div id=\"operation-models\" class=\"description\"/></div></div></p>\n        ";
   }
 
-function program11(depth0,data) {
+function program10(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
   buffer += "\n          <h4>Parameters</h4>\n          <table class='fullwidth'>\n          <thead>\n            <tr>\n            ";
-  options = {hash:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),data:data};
+  options = {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data};
   stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n            </tr>\n          </thead>\n          <tbody class=\"operation-params\">\n\n          </tbody>\n          </table>\n          ";
   return buffer;
   }
-function program12(depth0,data) {
+function program11(depth0,data) {
   
   
   return "\n            <th style=\"width: 100px; max-width: 100px\">Parameter</th>\n            <th style=\"width: 310px; max-width: 310px\">Value</th>\n            <th style=\"width: 200px; max-width: 200px\">Description</th>\n            <th style=\"width: 100px; max-width: 100px\">Parameter Type</th>\n            <th style=\"width: 220px; max-width: 230px\">Data Type</th>\n            ";
   }
 
-function program14(depth0,data) {
+function program13(depth0,data) {
   
   
   return "\n            <th style=\"width: 100px; max-width: 100px\">Parameter</th>\n            <th style=\"width: 530px; max-width: 530px\">Value</th>\n            <th style=\"width: 200px; max-width: 200px\">Description</th>\n            <th style=\"width: 100px; max-width: 100px\">Parameter Type</th>\n            ";
   }
 
-function program16(depth0,data) {
+function program15(depth0,data) {
   
   
   return "\n          <div style='margin:0;padding:0;display:inline'></div>\n          <h4>Error Status Codes</h4>\n          <table class='fullwidth'>\n            <thead>\n            <tr>\n              <th>HTTP Status Code</th>\n              <th>Reason</th>\n            </tr>\n            </thead>\n            <tbody class=\"operation-status\">\n            \n            </tbody>\n          </table>\n          ";
   }
 
-function program18(depth0,data) {
+function program17(depth0,data) {
   
   
   return "\n          ";
   }
 
-function program20(depth0,data) {
+function program19(depth0,data) {
   
   
   return "\n          <div class='sandbox_header'>\n            <input class='submit' name='commit' type='button' value='Try it out!' />\n            <a href='#' class='response_hider' style='display:none'>Hide Response</a>\n            <img alt='Throbber' class='response_throbber' src='images/throbber.gif' style='display:none' />\n          </div>\n          ";
   }
 
-function program22(depth0,data) {
-  
-  var buffer = "", stack1;
-  buffer += "\n        ";
-  stack1 = helpers['if'].call(depth0, depth0.type, {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n        ";
-  return buffer;
-  }
-function program23(depth0,data) {
+function program21(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\n          <br/>\n          <h4>Response Class</h4>\n          <p><span id=\"response-class\" class=\"model-signature\" /></p>\n          ";
-  options = {hash:{},inverse:self.noop,fn:self.program(24, program24, data),data:data};
+  buffer += "\n        <br/>\n        <h4>Response Class</h4>\n        <p><span id=\"response-class\" class=\"model-signature\" /></p>\n        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
   stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          ";
-  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
+  buffer += "\n        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
   stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   return buffer;
-  }
-function program24(depth0,data) {
-  
-  
-  return "\n          <div class=\"response-content-type\" />\n          ";
   }
 
   buffer += "\n  <ul class='operations' >\n    <li class='";
@@ -565,16 +554,16 @@ function program24(depth0,data) {
   stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "moveSandboxToTop", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        <form accept-charset='UTF-8' class='sandbox'>\n          <div style='margin:0;padding:0;display:inline'></div>\n          ";
-  stack2 = helpers['if'].call(depth0, depth0.parameters, {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
+  stack2 = helpers['if'].call(depth0, depth0.parameters, {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          ";
-  stack2 = helpers['if'].call(depth0, depth0.responseMessages, {hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data});
+  stack2 = helpers['if'].call(depth0, depth0.responseMessages, {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          ";
-  stack2 = helpers['if'].call(depth0, depth0.isReadOnly, {hash:{},inverse:self.program(20, program20, data),fn:self.program(18, program18, data),data:data});
+  stack2 = helpers['if'].call(depth0, depth0.isReadOnly, {hash:{},inverse:self.program(19, program19, data),fn:self.program(17, program17, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>Request URL</h4>\n          <div class='block request_url'></div>\n          <h4>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(22, program22, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
   stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "moveSandboxToTop", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      </div>\n    </li>\n  </ul>\n";
@@ -1855,8 +1844,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           tagName: 'div'
         });
         $('#response-class', $(this.el)).append(responseSignatureView.render().el);
-      } else {
+      } else if (this.model.type) {
         $('#response-class', $(this.el)).html(this.model.type);
+      } else {
+        $('#response-class', $(this.el)).html('(None)');
       }
       contentTypeModel = {
         isParam: false
@@ -1971,7 +1962,17 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           }
         }
         opts.responseContentType = $("div select[name=responseContentType]", $(this.el)).val();
+        if (!opts.responseContentType) {
+          if (this.model.produces && this.model.produces.length > 0) {
+            opts.responseContentType = this.model.produces[0];
+          }
+        }
         opts.requestContentType = $("div select[name=parameterContentType]", $(this.el)).val();
+        if (!opts.requestContentType) {
+          if (this.model.consumes && this.model.consumes.length > 0) {
+            opts.requestContentType = this.model.consumes[0];
+          }
+        }
         $(".response_throbber", $(this.el)).show();
         return this.model["do"](map, opts, this.showCompleteStatus, this.showErrorStatus, this);
       }
