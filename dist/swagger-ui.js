@@ -641,7 +641,7 @@ function program7(depth0,data) {
 function program9(depth0,data) {
   
   
-  return "\n			<a class=\"paste-model-template\" href=\"#\">Paste model template<img src=\"images/paste_plain.png\" style=\"margin-left: 4px\"/></a>\n			<br>\n			";
+  return "\n			<a class=\"paste-model-template\" href=\"#\"><img src=\"images/paste_plain.png\" style=\"margin-right: 4px\"/>Paste model template</a>\n			<br>\n			";
   }
 
 function program11(depth0,data) {
@@ -1150,7 +1150,7 @@ function program7(depth0,data) {
 function program9(depth0,data) {
   
   
-  return "\n			<a class=\"paste-model-template\" href=\"#\">Paste model template<img src=\"images/paste_plain.png\" style=\"margin-left: 4px\"/></a>\n			<br>\n			";
+  return "\n			<a class=\"paste-model-template\" href=\"#\"><img src=\"images/paste_plain.png\" style=\"margin-right: 4px\"/>Paste model template</a>\n			<br>\n			";
   }
 
 function program11(depth0,data) {
@@ -1300,9 +1300,25 @@ function program4(depth0,data) {
 templates['resource'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
+  
+  var stack1;
+  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  return escapeExpression(stack1);
+  }
+
+function program3(depth0,data) {
+  
+  var stack1;
+  if (stack1 = helpers.path) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.path; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  return escapeExpression(stack1);
+  }
+
+function program5(depth0,data) {
   
   
   return " : ";
@@ -1317,30 +1333,30 @@ function program1(depth0,data) {
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "');\">";
-  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + " ";
-  options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
-  if (stack1 = helpers.description) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.description) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  if (stack1 = helpers.description) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  options = {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data};
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "useShortResourceName", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "useShortResourceName", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += " ";
+  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
+  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.description) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</a>\n  </h2>\n  <ul class='options'>\n    <li>\n      <a href='#' onclick=\"Docs.toggleOperationsForResource('";
-  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "'); return false;\">\n        List/Expand Operations\n      </a>\n    </li>\n    <li>\n      <a href='";
-  if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "' target=\"_blank\">Resource Metadata</a>\n    </li>\n  </ul>\n</div>\n<ul class='endpoints' id='";
-  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "_endpoint_list' style='display:none'>\n\n</ul>\n";
   return buffer;
   });
@@ -1638,6 +1654,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     */
 
     showOptionalPropertiesTag: false,
+    /*
+      Whether to use the last element of a resource's path as its element name.
+      Or use the resource's path as its name
+    */
+
+    useShortResourceName: false,
     /*
       Swaggers Sandbox will not work if the browser window's location host does
       not match the API's base URL, because of CSRF prevention. Set to true if

@@ -38,6 +38,12 @@ SwaggerUiConfig =
   showOptionalPropertiesTag: false
 
   ###
+    Whether to use the last element of a resource's path as its element name.
+    Or use the resource's path as its name
+  ###
+  useShortResourceName: false
+
+  ###
     Swaggers Sandbox will not work if the browser window's location host does
     not match the API's base URL, because of CSRF prevention. Set to true if
     the API docs and API rest service share the same domain. This will force
