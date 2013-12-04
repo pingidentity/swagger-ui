@@ -2126,7 +2126,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         code = $('<code />').html(content);
         pre = $('<pre class="xml" />').append(code);
       } else {
-        code = $('<code />').text(content);
+        code = $('<code />').text("Content-Type '" + contentType + "' is not recognized. Content will not be displayed.");
         pre = $('<pre class="json" />').append(code);
       }
       response_body = pre;

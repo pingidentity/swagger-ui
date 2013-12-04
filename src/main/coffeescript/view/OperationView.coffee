@@ -243,7 +243,7 @@ class OperationView extends Backbone.View
       pre = $('<pre class="xml" />').append(code)
     else
       # don't know what to render!
-      code = $('<code />').text(content)
+      code = $('<code />').text("Content-Type '#{contentType}' is not recognized. Content will not be displayed.")
       pre = $('<pre class="json" />').append(code)
 
     response_body = pre
