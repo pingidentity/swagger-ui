@@ -64,5 +64,4 @@ class ParameterView extends Backbone.View
   snippetToTextArea: (e) ->
     e?.preventDefault()
     textArea = $('textarea', @el)
-    if $.trim(textArea.val()) == ''
-      textArea.val(@model.sampleJSON)
+    textArea.val(@model.sampleJSON)

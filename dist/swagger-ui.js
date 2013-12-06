@@ -2125,9 +2125,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       } else if (contentType.indexOf("text/html") === 0) {
         code = $('<code />').html(content);
         pre = $('<pre class="xml" />').append(code);
+      } else if (contentType.indexOf("application/pkcs10") === 0 || contentType.indexOf("application/x-x509-ca-cert") === 0) {
+        code = $('<code />').html(content);
+        pre = $('<pre/>').append(code);
       } else {
         code = $('<code />').text("Content-Type '" + contentType + "' is not recognized. Content will not be displayed.");
-        pre = $('<pre class="json" />').append(code);
+        pre = $('<pre/>').append(code);
       }
       response_body = pre;
       $(".request_url", $(this.el)).html("<pre>" + data.request.url + "</pre>");
@@ -2266,9 +2269,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         e.preventDefault();
       }
       textArea = $('textarea', this.el);
-      if ($.trim(textArea.val()) === '') {
-        return textArea.val(this.model.sampleJSON);
-      }
+      return textArea.val(this.model.sampleJSON);
     };
 
     return ParameterView;

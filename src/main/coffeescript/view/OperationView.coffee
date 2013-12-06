@@ -241,10 +241,14 @@ class OperationView extends Backbone.View
     else if contentType.indexOf("text/html") == 0
       code = $('<code />').html(content)
       pre = $('<pre class="xml" />').append(code)
+    else if contentType.indexOf("application/pkcs10") == 0 or contentType.indexOf("application/x-x509-ca-cert") == 0
+      # these MIME types are just text
+      code = $('<code />').html(content)
+      pre = $('<pre/>').append(code)
     else
       # don't know what to render!
       code = $('<code />').text("Content-Type '#{contentType}' is not recognized. Content will not be displayed.")
-      pre = $('<pre class="json" />').append(code)
+      pre = $('<pre/>').append(code)
 
     response_body = pre
     $(".request_url", $(@el)).html "<pre>" + data.request.url + "</pre>"
