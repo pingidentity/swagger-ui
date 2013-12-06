@@ -603,9 +603,16 @@
     };
 
     SwaggerModelProperty.prototype.toString = function() {
-      var req, str;
-      req = this.required ? 'propReq' : 'propOpt';
-      str = '<span class="propName ' + req + '">' + this.name + '</span> (<span class="propType">' + this.dataTypeWithRef + '</span>';
+      var req, str, propName;
+      req = 'propReq';
+      propName = this.name;
+      if (!this.required && SwaggerUiConfig.showOptionalPropertiesTag) {
+        req = 'propOpt';
+      }
+      if (this.required && !SwaggerUiConfig.showOptionalPropertiesTag) {
+        propName += ' *';
+      }
+      str = '<span class="propName ' + req + '">' + propName + '</span> (<span class="propType">' + this.dataTypeWithRef + '</span>';
       if (!this.required && SwaggerUiConfig.showOptionalPropertiesTag) {
         str += ', <span class="propOptKey">optional</span>';
       }
