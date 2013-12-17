@@ -1,0 +1,13 @@
+<assembly>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+
+	<fileSets>
+		<fileSet>
+			<directory>${basedir}/dist</directory>
+			<outputDirectory>api-docs</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>
