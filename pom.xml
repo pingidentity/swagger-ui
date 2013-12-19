@@ -8,9 +8,9 @@
   <packaging>pom</packaging>
 
   <scm>
-      <url>https://github.com/pingidentity/swagger-ui</url>
-      <connection>scm:git:git@github.com/pingidentity/swagger-ui.git</connection>
-      <developerConnection>scm:git:git@github.com/pingidentity/swagger-ui.git</developerConnection>
+      <url>http://github.com/pingidentity/swagger-ui</url>
+      <connection>scm:git:git@github.com:pingidentity/swagger-ui.git</connection>
+      <developerConnection>scm:git:git@github.com:pingidentity/swagger-ui.git</developerConnection>
   </scm>
 
   <build>
