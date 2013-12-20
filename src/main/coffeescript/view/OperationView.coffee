@@ -241,7 +241,7 @@ class OperationView extends Backbone.View
     else if contentType.indexOf("text/html") == 0
       code = $('<code />').html(content)
       pre = $('<pre class="xml" />').append(code)
-    else if contentType.indexOf("application/pkcs10") == 0 or contentType.indexOf("application/x-x509-ca-cert") == 0
+    else if contentType.indexOf("application/pkcs10") == 0 or contentType.indexOf("application/x-x509-ca-cert") == 0 or contentType.indexOf("text/plain") == 0
       # these MIME types are just text
       code = $('<code />').html(content)
       pre = $('<pre/>').append(code)

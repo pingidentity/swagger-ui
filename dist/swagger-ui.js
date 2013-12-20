@@ -2125,7 +2125,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       } else if (contentType.indexOf("text/html") === 0) {
         code = $('<code />').html(content);
         pre = $('<pre class="xml" />').append(code);
-      } else if (contentType.indexOf("application/pkcs10") === 0 || contentType.indexOf("application/x-x509-ca-cert") === 0) {
+      } else if (contentType.indexOf("application/pkcs10") === 0 || contentType.indexOf("application/x-x509-ca-cert") === 0 || contentType.indexOf("text/plain") === 0) {
         code = $('<code />').html(content);
         pre = $('<pre/>').append(code);
       } else {
