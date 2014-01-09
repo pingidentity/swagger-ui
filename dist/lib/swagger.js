@@ -692,6 +692,13 @@
         parameter = _ref1[_i];
         parameter.name = parameter.name || parameter.type || parameter.dataType;
         type = parameter.type || parameter.dataType;
+        if (type === "array") {
+            var typeRef = null;
+            if (parameter.items) {
+              typeRef = parameter.items["type"] || parameter.items["$ref"];
+            }
+            type = "array[" + typeRef + "]";
+        }
         if (type.toLowerCase() === 'boolean') {
           parameter.allowableValues = {};
           parameter.allowableValues.values = ["true", "false"];
