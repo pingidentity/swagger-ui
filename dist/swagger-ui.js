@@ -206,8 +206,8 @@ var Docs = {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['content_type'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", self=this;
 
 function program1(depth0,data) {
@@ -249,8 +249,8 @@ function program4(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['main'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
@@ -331,8 +331,8 @@ function program8(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['operation'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
@@ -362,11 +362,11 @@ function program5(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n        <h4>Response Class</h4>\n        <p><span id=\"response-class\" class=\"model-signature\" /></p>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   return buffer;
@@ -388,7 +388,7 @@ function program10(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n          <h4>Parameters</h4>\n          <table class='fullwidth'>\n          <thead>\n            <tr>\n            ";
   options = {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n            </tr>\n          </thead>\n          <tbody class=\"operation-params\">\n\n          </tbody>\n          </table>\n          ";
   return buffer;
@@ -428,11 +428,11 @@ function program21(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n        <br/>\n        <h4>Response Class</h4>\n        <p><span id=\"response-class\" class=\"model-signature\" /></p>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showResponseContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showResponseContentType", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";
   return buffer;
@@ -539,7 +539,7 @@ function program21(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "moveSandboxToTop", options));
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "moveSandboxToTop", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        <form accept-charset='UTF-8' class='sandbox'>\n          <div style='margin:0;padding:0;display:inline'></div>\n          ";
   stack2 = helpers['if'].call(depth0, depth0.parameters, {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
@@ -552,7 +552,7 @@ function program21(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>Request URL</h4>\n          <div class='block request_url'></div>\n          <h4>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "moveSandboxToTop", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "moveSandboxToTop", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "moveSandboxToTop", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      </div>\n    </li>\n  </ul>\n";
   return buffer;
@@ -562,8 +562,8 @@ function program21(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['param'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
@@ -591,15 +591,15 @@ function program4(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n			";
   options = {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n			<br />\n			";
   options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n			";
   options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterContentType", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterContentType", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n		";
   return buffer;
@@ -655,7 +655,7 @@ function program13(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n		";
   options = {hash:{},inverse:self.program(16, program16, data),fn:self.program(14, program14, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n	";
   return buffer;
@@ -717,7 +717,7 @@ function program18(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</td>\n";
   options = {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
   });
@@ -726,8 +726,8 @@ function program18(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['param_list'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, self=this, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
@@ -850,7 +850,7 @@ function program18(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</td>\n";
   options = {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
   });
@@ -859,8 +859,8 @@ function program18(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['param_readonly'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
@@ -868,7 +868,7 @@ function program1(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n        ";
   options = {hash:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
   return buffer;
@@ -956,7 +956,7 @@ function program11(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</td>\n";
   options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
   });
@@ -965,8 +965,8 @@ function program11(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['param_readonly_required'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
@@ -974,7 +974,7 @@ function program1(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n        ";
   options = {hash:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
   return buffer;
@@ -1062,7 +1062,7 @@ function program11(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</td>\n";
   options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
   });
@@ -1071,8 +1071,8 @@ function program11(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['param_required'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
@@ -1100,15 +1100,15 @@ function program4(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n			";
   options = {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "	\n			<br />\n			";
   options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
-  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.unlessSwaggerUiConfig || depth0.unlessSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "unlessSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n			";
   options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterContentType", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterContentType", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterContentType", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n		";
   return buffer;
@@ -1184,7 +1184,7 @@ function program16(depth0,data) {
   var buffer = "", stack1, stack2, options;
   buffer += "\n			";
   options = {hash:{},inverse:self.program(19, program19, data),fn:self.program(17, program17, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "	\n		";
   return buffer;
@@ -1246,7 +1246,7 @@ function program21(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</td>\n";
   options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
   });
@@ -1255,8 +1255,8 @@ function program21(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['parameter_content_type'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", self=this;
 
 function program1(depth0,data) {
@@ -1298,8 +1298,8 @@ function program4(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['resource'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -1334,7 +1334,7 @@ function program5(depth0,data) {
   buffer += escapeExpression(stack1)
     + "');\">";
   options = {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "useShortResourceName", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "useShortResourceName", options));
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "useShortResourceName", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "useShortResourceName", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += " ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
@@ -1365,8 +1365,8 @@ function program5(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['response_content_type'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", self=this;
 
 function program1(depth0,data) {
@@ -1408,8 +1408,8 @@ function program4(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['signature'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", self=this, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
@@ -1443,8 +1443,8 @@ function program3(depth0,data) {
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['status_code'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
-helpers = helpers || Handlebars.helpers; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
