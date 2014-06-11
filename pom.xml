@@ -4,14 +4,14 @@
   <groupId>ping.onpremiseshare</groupId>
   <artifactId>ping-swagger-ui</artifactId>
   <name>Ping Swagger API Docs</name>
-  <version>1.4.19-SNAPSHOT</version>
+  <version>1.4.19</version>
   <packaging>pom</packaging>
 
   <scm>
       <url>http://github.com/pingidentity/swagger-ui</url>
       <connection>scm:git:git@github.com:pingidentity/swagger-ui.git</connection>
       <developerConnection>scm:git:git@github.com:pingidentity/swagger-ui.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>ping-swagger-ui-1.4.19</tag>
   </scm>
 
   <build>
