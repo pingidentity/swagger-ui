@@ -1353,7 +1353,7 @@ function program5(depth0,data) {
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "' target=\"_blank\">Resource Metadata</a>\n    </li>\n  </ul>\n</div>\n<ul class='endpoints' id='";
+    + "' target=\"_blank\">Metadata</a>\n    </li>\n  </ul>\n</div>\n<ul class='endpoints' id='";
   if (stack2 = helpers.name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
