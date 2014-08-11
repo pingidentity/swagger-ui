@@ -913,6 +913,22 @@
     SwaggerOperation.prototype.pathXml = function() {
       return this.path.replace("{format}", "xml");
     };
+    
+    SwaggerOperation.prototype.encodePathParam = function(pathParam) {
+  var encParts, part, parts, _i, _len;
+  pathParam = pathParam.toString();
+  if (pathParam.indexOf("/") === -1) {
+    return encodeURIComponent(pathParam);
+  } else {
+    parts = pathParam.split("/");
+    encParts = [];
+    for (_i = 0, _len = parts.length; _i < _len; _i++) {
+      part = parts[_i];
+      encParts.push(encodeURIComponent(part));
+    }
+    return encParts.join("/");
+  }
+};
 
     SwaggerOperation.prototype.urlify = function(args) {
       var param, queryParams, reg, url, _i, _j, _len, _len1, _ref, _ref1;
@@ -1001,209 +1017,209 @@
 
   })();
 
-  SwaggerRequest = (function() {
-    function SwaggerRequest(type, url, params, opts, successCallback, errorCallback, operation, execution) {
-      var body, e, fields, headers, key, myHeaders, name, obj, param, parent, possibleParams, requestContentType, responseContentType, urlEncoded, value, values,
-        _this = this;
-      this.type = type;
-      this.url = url;
-      if (SwaggerUiConfig.apiDocsAndRestOnSameServer) {
-        var tempUrl;
-        var schemeDelim = "://";
-        var index = url.indexOf(schemeDelim);
-        if (index !== -1) {
-          index = url.indexOf("/", index + schemeDelim.length);
-          tempUrl = location.protocol + "//" + location.host;
-          if (index !== -1) {
-            tempUrl += url.substring(index);
-          }
+  var SwaggerRequest = function(type, url, params, opts, successCallback, errorCallback, operation, execution) {
+  var _this = this;
+  var errors = [];
+  this.useJQuery = (typeof operation.resource.useJQuery !== 'undefined' ? operation.resource.useJQuery : null);
+  this.type = (type||errors.push("SwaggerRequest type is required (get/post/put/delete/patch/options)."));
+  this.url = (url||errors.push("SwaggerRequest url is required."));
+  if (SwaggerUiConfig.apiDocsAndRestOnSameServer) {
+    var tempUrl;
+    var schemeDelim = "://";
+    var index = url.indexOf(schemeDelim);
+    if (index !== -1) {
+      index = url.indexOf("/", index + schemeDelim.length);
+      tempUrl = location.protocol + "//" + location.host;
+      if (index !== -1) {
+        tempUrl += url.substring(index);
+      }
+      this.url = tempUrl;
+    }
+  }
+  this.params = params;
+  this.opts = opts;
+  this.successCallback = (successCallback||errors.push("SwaggerRequest successCallback is required."));
+  this.errorCallback = (errorCallback||errors.push("SwaggerRequest error callback is required."));
+  this.operation = (operation||errors.push("SwaggerRequest operation is required."));
+  this.execution = execution;
+  this.headers = (params.headers||{});
 
-          this.url = tempUrl;
-        }
-      }
-      this.params = params;
-      this.opts = opts;
-      this.successCallback = successCallback;
-      this.errorCallback = errorCallback;
-      this.operation = operation;
-      this.execution = execution;
-      if (this.type == null) {
-        throw "SwaggerRequest type is required (get/post/put/delete).";
-      }
-      if (this.url == null) {
-        throw "SwaggerRequest url is required.";
-      }
-      if (this.successCallback == null) {
-        throw "SwaggerRequest successCallback is required.";
-      }
-      if (this.errorCallback == null) {
-        throw "SwaggerRequest error callback is required.";
-      }
-      if (this.operation == null) {
-        throw "SwaggerRequest operation is required.";
-      }
-      this.type = this.type.toUpperCase();
-      headers = params.headers;
-      myHeaders = {};
-      body = params.body;
-      parent = params["parent"];
-      requestContentType = "application/json";
-      if (body && (this.type === "POST" || this.type === "PUT" || this.type === "PATCH")) {
-        if (this.opts.requestContentType) {
-          requestContentType = this.opts.requestContentType;
-        }
-      } else {
-        if (((function() {
-          var _i, _len, _ref, _results;
-          _ref = this.operation.parameters;
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            param = _ref[_i];
-            if (param.paramType === "form") {
-              _results.push(param);
-            }
-          }
-          return _results;
-        }).call(this)).length > 0) {
-          type = param.type || param.dataType;
-          if (((function() {
-            var _i, _len, _ref, _results;
-            _ref = this.operation.parameters;
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              param = _ref[_i];
-              if (type.toLowerCase() === "file") {
-                _results.push(param);
-              }
-            }
-            return _results;
-          }).call(this)).length > 0) {
-            requestContentType = "multipart/form-data";
-          } else {
-            requestContentType = "application/x-www-form-urlencoded";
-          }
-        } else if (this.type !== "DELETE") {
-          requestContentType = null;
-        }
-      }
-      if (requestContentType && this.operation.consumes) {
-        if (this.operation.consumes.indexOf(requestContentType) === -1) {
-          console.log("server doesn't consume " + requestContentType + ", try " + JSON.stringify(this.operation.consumes));
-          if (this.requestContentType === null) {
-            requestContentType = this.operation.consumes[0];
-          }
-        }
-      }
-      responseContentType = null;
-      if (this.type === "POST" || this.type === "GET" || this.type === "PATCH") {
-        if (this.opts.responseContentType) {
-          responseContentType = this.opts.responseContentType;
-        } else {
-          responseContentType = "application/json";
-        }
-      } else {
-        responseContentType = null;
-      }
-      if (responseContentType && this.operation.produces) {
-        if (this.operation.produces.indexOf(responseContentType) === -1) {
-          console.log("server can't produce " + responseContentType);
-        }
-      }
-      if (requestContentType && requestContentType.indexOf("application/x-www-form-urlencoded") === 0) {
-        fields = {};
-        possibleParams = (function() {
-          var _i, _len, _ref, _results;
-          _ref = this.operation.parameters;
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            param = _ref[_i];
-            if (param.paramType === "form") {
-              _results.push(param);
-            }
-          }
-          return _results;
-        }).call(this);
-        values = {};
-        for (key in possibleParams) {
-          value = possibleParams[key];
-          if (this.params[value.name]) {
-            values[value.name] = this.params[value.name];
-          }
-        }
-        urlEncoded = "";
-        for (key in values) {
-          value = values[key];
-          if (urlEncoded !== "") {
-            urlEncoded += "&";
-          }
-          urlEncoded += encodeURIComponent(key) + '=' + encodeURIComponent(value);
-        }
-        body = urlEncoded;
-      }
-      for (name in headers) {
-        myHeaders[name] = headers[name];
-      }
-      if (requestContentType) {
-        myHeaders["Content-Type"] = requestContentType;
-      }
-      if (responseContentType) {
-        myHeaders["Accept"] = responseContentType;
-      }
-      if (!((headers != null) && (headers.mock != null))) {
-        obj = {
-          url: this.url,
-          method: this.type,
-          headers: myHeaders,
-          body: body,
-          on: {
-            error: function(response) {
-              return _this.errorCallback(response, _this.opts.parent);
-            },
-            redirect: function(response) {
-              return _this.successCallback(response, _this.opts.parent);
-            },
-            307: function(response) {
-              return _this.successCallback(response, _this.opts.parent);
-            },
-            response: function(response) {
-              return _this.successCallback(response, _this.opts.parent);
-            }
-          }
-        };
-        e = {};
-        if (typeof window !== 'undefined') {
-          e = window;
-        } else {
-          e = exports;
-        }
-        e.authorizations.apply(obj);
-        if (opts.mock == null) {
-          new SwaggerHttp().execute(obj);
-        } else {
-          console.log(obj);
-          return obj;
-        }
-      }
+  if(errors.length > 0) {
+    throw errors;
+  }
+
+  this.type = this.type.toUpperCase();
+
+  // set request, response content type headers
+  var headers = this.setHeaders(params, this.operation);
+  var body = params.body;
+
+  // encode the body for form submits
+  if (headers["Content-Type"]) {
+    var values = {};
+    var i;
+    var operationParams = this.operation.parameters;
+    for(i = 0; i < operationParams.length; i++) {
+      var param = operationParams[i];
+      if(param.paramType === "form")
+        values[param.name] = param;
     }
 
-    SwaggerRequest.prototype.asCurl = function() {
-      var header_args, k, v;
-      header_args = (function() {
-        var _ref, _results;
-        _ref = this.headers;
-        _results = [];
-        for (k in _ref) {
-          v = _ref[k];
-          _results.push("--header \"" + k + ": " + v + "\"");
+    if(headers["Content-Type"].indexOf("application/x-www-form-urlencoded") === 0) {
+      var encoded = "";
+      var key;
+      for(key in values) {
+        value = this.params[key];
+        if(typeof value !== 'undefined'){
+          if(encoded !== "")
+            encoded += "&";
+          encoded += encodeURIComponent(key) + '=' + encodeURIComponent(value);
         }
-        return _results;
-      }).call(this);
-      return "curl " + (header_args.join(" ")) + " " + this.url;
+      }
+      body = encoded;
+    }
+    else if (headers["Content-Type"].indexOf("multipart/form-data") === 0) {
+      // encode the body for form submits
+      var data = "";
+      var boundary = "----SwaggerFormBoundary" + Date.now();
+      var key;
+      for(key in values) {
+        value = this.params[key];
+        if(typeof value !== 'undefined') {
+          data += '--' + boundary + '\n';
+          data += 'Content-Disposition: form-data; name="' + key + '"';
+          data += '\n\n';
+          data += value + "\n";
+        }
+      }
+      data += "--" + boundary + "--\n";
+      headers["Content-Type"] = "multipart/form-data; boundary=" + boundary;
+      body = data;
+    }
+  }
+
+  if (!((this.headers != null) && (this.headers.mock != null))) {
+    obj = {
+      url: this.url,
+      method: this.type,
+      headers: headers,
+      body: body,
+      useJQuery: this.useJQuery,
+      on: {
+        error: function(response) {
+          return _this.errorCallback(response, _this.opts.parent);
+        },
+        redirect: function(response) {
+          return _this.successCallback(response, _this.opts.parent);
+        },
+        307: function(response) {
+          return _this.successCallback(response, _this.opts.parent);
+        },
+        response: function(response) {
+          return _this.successCallback(response, _this.opts.parent);
+        }
+      }
     };
+    var e;
+    if (typeof window !== 'undefined') {
+      e = window;
+    } else {
+      e = exports;
+    }
+    status = e.authorizations.apply(obj, this.operation.authorizations);
+    if (opts.mock == null) {
+      if (status !== false) {
+        new SwaggerHttp().execute(obj);
+      } else {
+        obj.canceled = true;
+      }
+    } else {
+      return obj;
+    }
+  }
+};
 
-    return SwaggerRequest;
+SwaggerRequest.prototype.setHeaders = function(params, operation) {
+  // default type
+  var accepts = "application/json";
+  var consumes = "application/json";
 
-  })();
+  var allDefinedParams = this.operation.parameters;
+  var definedFormParams = [];
+  var definedFileParams = [];
+  var body = params.body;
+  var headers = {};
+
+  // get params from the operation and set them in definedFileParams, definedFormParams, headers
+  var i;
+  for(i = 0; i < allDefinedParams.length; i++) {
+    var param = allDefinedParams[i];
+    if(param.paramType === "form")
+      definedFormParams.push(param);
+    else if(param.paramType === "file")
+      definedFileParams.push(param);
+    else if(param.paramType === "header" && this.params.headers) {
+      var key = param.name;
+      var headerValue = this.params.headers[param.name];
+      if(typeof this.params.headers[param.name] !== 'undefined')
+        headers[key] = headerValue;
+    }
+  }
+
+  // if there's a body, need to set the accepts header via requestContentType
+  if (body && (this.type === "POST" || this.type === "PUT" || this.type === "PATCH" || this.type === "DELETE")) {
+    if (this.opts.requestContentType)
+      accepts = this.opts.requestContentType;
+  } else {
+    // if any form params, content type must be set
+    if(definedFormParams.length > 0) {
+      if(definedFileParams.length > 0)
+        consumes = "multipart/form-data";
+      else
+        consumes = "application/x-www-form-urlencoded";
+    }
+    else if (this.type == "DELETE")
+      body = "{}";
+    else if (this.type != "DELETE")
+      accepts = null;
+  }
+
+  if (consumes && this.operation.consumes) {
+    if (this.operation.consumes.indexOf(consumes) === -1) {
+      log("server doesn't consume " + consumes + ", try " + JSON.stringify(this.operation.consumes));
+      consumes = this.operation.consumes[0];
+    }
+  }
+
+  if (this.opts.responseContentType) {
+    accepts = this.opts.responseContentType;
+  } else {
+    accepts = "application/json";
+  }
+  if (accepts && this.operation.produces) {
+    if (this.operation.produces.indexOf(accepts) === -1) {
+      log("server can't produce " + accepts);
+      accepts = this.operation.produces[0];
+    }
+  }
+
+  if ((consumes && typeof body !== 'undefined') || (consumes === "application/x-www-form-urlencoded"))
+    headers["Content-Type"] = consumes;
+  if (accepts)
+    headers["Accept"] = accepts;
+  return headers;
+}
+
+SwaggerRequest.prototype.asCurl = function() {
+  var results = [];
+  if(this.headers) {
+    var key;
+    for(key in this.headers) {
+      results.push("--header \"" + key + ": " + this.headers[v] + "\"");
+    }
+  }
+  return "curl " + (results.join(" ")) + " " + this.url;
+};
 
   SwaggerHttp = (function() {
     SwaggerHttp.prototype.Shred = null;

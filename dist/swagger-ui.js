@@ -652,18 +652,27 @@ function program11(depth0,data) {
 
 function program13(depth0,data) {
   
-  var buffer = "", stack1, stack2, options;
-  buffer += "\n		";
-  options = {hash:{},inverse:self.program(16, program16, data),fn:self.program(14, program14, data),data:data};
-  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
-  if(stack2 || stack2 === 0) { buffer += stack2; }
+  var buffer = "", stack1;
+  buffer += "\n	\n		";
+  stack1 = helpers['if'].call(depth0, depth0.isFile, {hash:{},inverse:self.program(14, program14, data),fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n	";
   return buffer;
   }
 function program14(depth0,data) {
   
+  var buffer = "", stack1, stack2, options;
+  buffer += "\n  			";
+  options = {hash:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),data:data};
+  stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n		";
+  return buffer;
+  }
+function program15(depth0,data) {
+  
   var buffer = "", stack1;
-  buffer += "\n		<input class='parameter' minlength='0' name='";
+  buffer += "\n		    	<input class='parameter' minlength='0' name='";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -671,14 +680,14 @@ function program14(depth0,data) {
   if (stack1 = helpers.defaultValue) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.defaultValue; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\n		";
+    + "'/>\n			";
   return buffer;
   }
 
-function program16(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n		<input class='parameter' minlength='0' name='";
+  buffer += "\n				<input class='parameter' minlength='0' name='";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -690,11 +699,11 @@ function program16(depth0,data) {
   if (stack1 = helpers.defaultValue) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.defaultValue; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'/>\n		";
+    + "'/>\n			";
   return buffer;
   }
 
-function program18(depth0,data) {
+function program19(depth0,data) {
   
   
   return "\n<td>\n	<span class=\"model-signature\"></span>\n</td>\n";
@@ -716,7 +725,7 @@ function program18(depth0,data) {
   else { stack1 = depth0.paramType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</td>\n";
-  options = {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
   stack2 = ((stack1 = helpers.ifSwaggerUiConfig || depth0.ifSwaggerUiConfig),stack1 ? stack1.call(depth0, "showParameterDataTypeColumn", options) : helperMissing.call(depth0, "ifSwaggerUiConfig", "showParameterDataTypeColumn", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   return buffer;
@@ -1925,7 +1934,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     };
 
     OperationView.prototype.submitOperation = function(e) {
-      var error_free, form, map, o, opts, val, _i, _j, _k, _len, _len1, _len2, _ref5, _ref6, _ref7;
+      var error_free, form, isFileUpload, map, o, opts, val, _i, _j, _k, _len, _len1, _len2, _ref5, _ref6, _ref7;
       if (e != null) {
         e.preventDefault();
       }
@@ -1949,11 +1958,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         opts = {
           parent: this
         };
+        isFileUpload = false;
         _ref5 = form.find("input");
         for (_i = 0, _len = _ref5.length; _i < _len; _i++) {
           o = _ref5[_i];
           if ((o.value != null) && jQuery.trim(o.value).length > 0) {
             map[o.name] = o.value;
+          }
+          if (o.type === "file") {
+            isFileUpload = true;
           }
         }
         _ref6 = form.find("textarea");
@@ -1984,12 +1997,105 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           }
         }
         $(".response_throbber", $(this.el)).show();
-        return this.model["do"](map, opts, this.showCompleteStatus, this.showErrorStatus, this);
+        if (isFileUpload) {
+          return this.handleFileUpload(map, form);
+        } else {
+          return this.model["do"](map, opts, this.showCompleteStatus, this.showErrorStatus, this);
+        }
       }
     };
 
     OperationView.prototype.success = function(response, parent) {
       return parent.showCompleteStatus(response);
+    };
+
+    OperationView.prototype.handleFileUpload = function(map, form) {
+      var bodyParam, el, headerParams, o, obj, param, params, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref5, _ref6, _ref7, _ref8,
+        _this = this;
+      _ref5 = form.serializeArray();
+      for (_i = 0, _len = _ref5.length; _i < _len; _i++) {
+        o = _ref5[_i];
+        if ((o.value != null) && jQuery.trim(o.value).length > 0) {
+          map[o.name] = o.value;
+        }
+      }
+      bodyParam = new FormData();
+      params = 0;
+      _ref6 = this.model.parameters;
+      for (_j = 0, _len1 = _ref6.length; _j < _len1; _j++) {
+        param = _ref6[_j];
+        if (param.paramType === 'form') {
+          if (param.type.toLowerCase() !== 'file' && map[param.name] !== void 0) {
+            bodyParam.append(param.name, map[param.name]);
+          }
+        }
+      }
+      headerParams = {};
+      _ref7 = this.model.parameters;
+      for (_k = 0, _len2 = _ref7.length; _k < _len2; _k++) {
+        param = _ref7[_k];
+        if (param.paramType === 'header') {
+          headerParams[param.name] = map[param.name];
+        }
+      }
+      log(headerParams);
+      _ref8 = form.find('input[type~="file"]');
+      for (_l = 0, _len3 = _ref8.length; _l < _len3; _l++) {
+        el = _ref8[_l];
+        if (typeof el.files[0] !== 'undefined') {
+          bodyParam.append($(el).attr('name'), el.files[0]);
+          params += 1;
+        }
+      }
+      this.invocationUrl = this.model.supportHeaderParams() ? (headerParams = this.model.getHeaderParams(map), this.model.urlify(map, false)) : this.model.urlify(map, true);
+      $(".request_url", $(this.el)).html("<pre>" + this.invocationUrl + "</pre>");
+      obj = {
+        type: this.model.method,
+        url: this.invocationUrl,
+        headers: headerParams,
+        data: bodyParam,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        error: function(data, textStatus, error) {
+          return _this.showErrorStatus(_this.wrap(data), _this);
+        },
+        success: function(data) {
+          return _this.showResponse(data, _this);
+        },
+        complete: function(data) {
+          return _this.showCompleteStatus(_this.wrap(data), _this);
+        }
+      };
+      if (window.authorizations) {
+        window.authorizations.apply(obj);
+      }
+      if (params === 0) {
+        obj.data.append("fake", "true");
+      }
+      jQuery.ajax(obj);
+      return false;
+    };
+
+    OperationView.prototype.wrap = function(data) {
+      var h, headerArray, headers, i, o, _i, _len;
+      headers = {};
+      headerArray = data.getAllResponseHeaders().split("\r");
+      for (_i = 0, _len = headerArray.length; _i < _len; _i++) {
+        i = headerArray[_i];
+        h = i.split(':');
+        if (h[0] !== void 0 && h[1] !== void 0) {
+          headers[h[0].trim()] = h[1].trim();
+        }
+      }
+      o = {};
+      o.content = {};
+      o.content.data = data.responseText;
+      o.headers = headers;
+      o.request = {};
+      o.request.url = this.invocationUrl;
+      o.status = data.status;
+      return o;
     };
 
     OperationView.prototype.getSelectedValue = function(select) {
@@ -2108,35 +2214,47 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       return formatted;
     };
 
-    OperationView.prototype.showStatus = function(data) {
-      var code, content, contentType, headers, pre, response_body;
-      content = data.content.data;
-      headers = data.getHeaders();
-      contentType = headers["Content-Type"];
-      if (content === void 0) {
+    OperationView.prototype.showStatus = function(response) {
+      var code, content, contentType, headers, pre, response_body, url;
+      if (response.content === void 0) {
+        content = response.data;
+        url = response.url;
+      } else {
+        content = response.content.data;
+        url = response.request.url;
+      }
+      if (response.headers === void 0) {
+        headers = response.getHeaders();
+      } else {
+        headers = response.headers;
+      }
+      contentType = headers && headers["Content-Type"] ? headers["Content-Type"].split(";")[0].trim() : null;
+      if (!content) {
         code = $('<code />').text("no content");
         pre = $('<pre class="json" />').append(code);
-      } else if (contentType.indexOf("application/json") === 0 || contentType.indexOf("application/hal+json") === 0) {
-        code = $('<code />').text(JSON.stringify(JSON.parse(content), null, 2));
+      } else if (contentType === "application/json" || /\+json$/.test(contentType)) {
+        code = $('<code />').text(JSON.stringify(JSON.parse(content), null, "  "));
         pre = $('<pre class="json" />').append(code);
-      } else if (contentType.indexOf("application/xml") === 0) {
+      } else if (contentType === "application/xml" || /\+xml$/.test(contentType)) {
         code = $('<code />').text(this.formatXml(content));
         pre = $('<pre class="xml" />').append(code);
-      } else if (contentType.indexOf("text/html") === 0) {
+      } else if (contentType === "text/html") {
         code = $('<code />').html(content);
         pre = $('<pre class="xml" />').append(code);
-      } else if (contentType.indexOf("application/pkcs10") === 0 || contentType.indexOf("application/x-x509-ca-cert") === 0 || contentType.indexOf("text/plain") === 0) {
+      } else if (contentType === "application/pkcs10" || contentType === "application/x-x509-ca-cert" || contentType === "text/plain") {
         code = $('<code />').html(content);
         pre = $('<pre/>').append(code);
+      } else if (/^image\//.test(contentType)) {
+        pre = $('<img>').attr('src', url);
       } else {
         code = $('<code />').text("Content-Type '" + contentType + "' is not recognized. Content will not be displayed.");
         pre = $('<pre/>').append(code);
       }
       response_body = pre;
-      $(".request_url", $(this.el)).html("<pre>" + data.request.url + "</pre>");
-      $(".response_code", $(this.el)).html("<pre>" + data.status + "</pre>");
+      $(".request_url", $(this.el)).html("<pre>" + url + "</pre>");
+      $(".response_code", $(this.el)).html("<pre>" + response.status + "</pre>");
       $(".response_body", $(this.el)).html(response_body);
-      $(".response_headers", $(this.el)).html("<pre>" + JSON.stringify(data.getHeaders()) + "</pre>");
+      $(".response_headers", $(this.el)).html("<pre>" + JSON.stringify(headers) + "</pre>");
       $(".response", $(this.el)).slideDown();
       $(".response_hider", $(this.el)).show();
       $(".response_throbber", $(this.el)).hide();
