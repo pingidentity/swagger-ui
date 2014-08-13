@@ -15,12 +15,10 @@
       		if (index !== -1) {
         		tempUrl += url.substring(index);
       		}
-      	return tempUrl;
+      	    return tempUrl;
     	}
-  	 }
-  	 else {
-  	 	return url;
-  	 }
+  	 }  	 
+  	 return url;  	 
   }
 
   SwaggerApi = (function() {
