@@ -3,6 +3,26 @@
   var ApiKeyAuthorization, PasswordAuthorization, SwaggerApi, SwaggerAuthorizations, SwaggerHttp, SwaggerModel, SwaggerModelProperty, SwaggerSubType, SwaggerOperation, SwaggerRequest, SwaggerResource,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
+  // Convert the URL to a window.location based URL	
+  function convertUrl(url) {
+     if (SwaggerUiConfig.apiDocsAndRestOnSameServer) {
+    	var tempUrl;
+    	var schemeDelim = "://";
+    	var index = url.indexOf(schemeDelim);
+    	if (index !== -1) {
+      		index = url.indexOf("/", index + schemeDelim.length);
+      		tempUrl = location.protocol + "//" + location.host;
+      		if (index !== -1) {
+        		tempUrl += url.substring(index);
+      		}
+      	return tempUrl;
+    	}
+  	 }
+  	 else {
+  	 	return url;
+  	 }
+  }
+
   SwaggerApi = (function() {
     SwaggerApi.prototype.url = "http://api.wordnik.com/v4/resources.json";
 
@@ -932,7 +952,8 @@
 
     SwaggerOperation.prototype.urlify = function(args) {
       var param, queryParams, reg, url, _i, _j, _len, _len1, _ref, _ref1;
-      url = this.resource.basePath + this.pathJson();
+      url = convertUrl(this.resource.basePath) + this.pathJson(); 
+
       _ref = this.parameters;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         param = _ref[_i];
@@ -1023,19 +1044,7 @@
   this.useJQuery = (typeof operation.resource.useJQuery !== 'undefined' ? operation.resource.useJQuery : null);
   this.type = (type||errors.push("SwaggerRequest type is required (get/post/put/delete/patch/options)."));
   this.url = (url||errors.push("SwaggerRequest url is required."));
-  if (SwaggerUiConfig.apiDocsAndRestOnSameServer) {
-    var tempUrl;
-    var schemeDelim = "://";
-    var index = url.indexOf(schemeDelim);
-    if (index !== -1) {
-      index = url.indexOf("/", index + schemeDelim.length);
-      tempUrl = location.protocol + "//" + location.host;
-      if (index !== -1) {
-        tempUrl += url.substring(index);
-      }
-      this.url = tempUrl;
-    }
-  }
+  this.url = convertUrl(url);
   this.params = params;
   this.opts = opts;
   this.successCallback = (successCallback||errors.push("SwaggerRequest successCallback is required."));
