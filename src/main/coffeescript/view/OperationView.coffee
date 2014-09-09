@@ -21,7 +21,7 @@ class OperationView extends Backbone.View
         sampleJSON: @model.responseSampleJSON
         isParam: false
         signature: if SwaggerUiConfig.showParameterDataTypeColumn then @model.responseClassSignature else "<span class='strong'>#{@model.type}</span>"
-    
+
       unless SwaggerUiConfig.showParameterDataTypeColumn
         operationModels = @model.responseClassSignature
 
@@ -62,7 +62,7 @@ class OperationView extends Backbone.View
 
     if operationModels == ''
       operationModels = '(None)'
-    
+
     $('#operation-models', $(@el)).html(operationModels)
 
     @
@@ -77,7 +77,7 @@ class OperationView extends Backbone.View
     # Render status codes
     statusCodeView = new StatusCodeView({model: statusCode, tagName: 'tr'})
     $('.operation-status', $(@el)).append statusCodeView.render().el
-  
+
   submitOperation: (e) ->
     e?.preventDefault()
     # Check for errors
@@ -108,20 +108,20 @@ class OperationView extends Backbone.View
         if(o.value? && jQuery.trim(o.value).length > 0)
           map["body"] = o.value
 
-      for o in form.find("select") 
+      for o in form.find("select")
         val = this.getSelectedValue o
         if(val? && jQuery.trim(val).length > 0)
           map[o.name] = val
 
       opts.responseContentType = $("div select[name=responseContentType]", $(@el)).val()
       unless opts.responseContentType
-        if @model.produces and @model.produces.length > 0 
+        if @model.produces and @model.produces.length > 0
           # dropdown might not exist because we don't show it. default to first content type from operation
           opts.responseContentType = @model.produces[0]
 
       opts.requestContentType = $("div select[name=parameterContentType]", $(@el)).val()
       unless opts.requestContentType
-        if @model.consumes and @model.consumes.length > 0 
+        if @model.consumes and @model.consumes.length > 0
           # dropdown might not exist because we don't show it. default to first content type from operation
           opts.requestContentType = @model.consumes[0]
 
@@ -163,7 +163,7 @@ class OperationView extends Backbone.View
         bodyParam.append($(el).attr('name'), el.files[0])
         params += 1
 
-    @invocationUrl = 
+    @invocationUrl =
       if @model.supportHeaderParams()
         headerParams = @model.getHeaderParams(map)
         @model.urlify(map, false)
@@ -172,7 +172,7 @@ class OperationView extends Backbone.View
 
     $(".request_url", $(@el)).html "<pre>" + @invocationUrl + "</pre>"
 
-    obj = 
+    obj =
       type: @model.method
       url: @invocationUrl
       headers: headerParams
@@ -218,12 +218,12 @@ class OperationView extends Backbone.View
     o
 
   getSelectedValue: (select) ->
-    if !select.multiple 
+    if !select.multiple
       select.value
     else
       options = []
       options.push opt.value for opt in select.options when opt.selected
-      if options.length > 0 
+      if options.length > 0
         options.join ","
       else
         null
@@ -260,7 +260,7 @@ class OperationView extends Backbone.View
     lines = xml.split('\n')
     indent = 0
     lastType = 'other'
-    # 4 types of tags - single, closing, opening, other (text, doctype, comment) - 4*4 = 16 transitions 
+    # 4 types of tags - single, closing, opening, other (text, doctype, comment) - 4*4 = 16 transitions
     transitions =
       'single->single': 0
       'single->closing': -1
@@ -304,24 +304,24 @@ class OperationView extends Backbone.View
           formatted = formatted.substr(0, formatted.length - 1) + ln + '\n'
         else
           formatted += padding + ln + '\n'
-      
+
     formatted
-    
+
 
   # puts the response data in UI
   showStatus: (response) ->
     if response.content is undefined
-            content = response.data
-            url = response.url
+        content = response.data
+        url = response.url
     else
         content = response.content.data
         url = response.request.url
-    
+
     if response.headers is undefined
     	headers = response.getHeaders()
     else
-    	headers = response.headers   
-   
+    	headers = response.headers
+
     # if server is nice, and sends content-type back, we can use it
     contentType = if headers && headers["Content-Type"] then headers["Content-Type"].split(";")[0].trim() else null
 
@@ -344,9 +344,17 @@ class OperationView extends Backbone.View
     else if /^image\//.test(contentType)
       pre = $('<img>').attr('src',url)
     else
-      # don't know what to render!
-      code = $('<code />').text("Content-Type '#{contentType}' is not recognized. Content will not be displayed.")
-      pre = $('<pre/>').append(code)
+      try
+        # if content type is null or undefined, we'll try to parse it to JSON anyways. This is to work around IE9's lack of CORS support
+        if contentType == null
+          jsonStr = JSON.stringify(JSON.parse(content), null, "  ")
+          code = $('<code />').text(jsonStr)
+        else
+          throw new Error
+      catch error
+        code = $('<code />').text("Content-Type '#{contentType}' is not recognized. Content will not be displayed.")
+      pre = $('<pre class="json" />').append(code)
+
 
     response_body = pre
     $(".request_url", $(@el)).html "<pre>" + url + "</pre>"

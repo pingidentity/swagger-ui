@@ -2215,7 +2215,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     };
 
     OperationView.prototype.showStatus = function(response) {
-      var code, content, contentType, headers, pre, response_body, url;
+      var code, content, contentType, error, headers, jsonStr, pre, response_body, url;
       if (response.content === void 0) {
         content = response.data;
         url = response.url;
@@ -2247,8 +2247,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       } else if (/^image\//.test(contentType)) {
         pre = $('<img>').attr('src', url);
       } else {
-        code = $('<code />').text("Content-Type '" + contentType + "' is not recognized. Content will not be displayed.");
-        pre = $('<pre/>').append(code);
+        try {
+          if (contentType === null) {
+            jsonStr = JSON.stringify(JSON.parse(content), null, "  ");
+            code = $('<code />').text(jsonStr);
+          } else {
+            throw new Error;
+          }
+        } catch (_error) {
+          error = _error;
+          code = $('<code />').text("Content-Type '" + contentType + "' is not recognized. Content will not be displayed.");
+        }
+        pre = $('<pre class="json" />').append(code);
       }
       response_body = pre;
       $(".request_url", $(this.el)).html("<pre>" + url + "</pre>");
