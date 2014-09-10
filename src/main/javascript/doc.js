@@ -61,6 +61,15 @@ function clippyCopiedCallback(a) {
   // 500))
 }
 
+if (!window.console) {
+	var noOp = function(){}; // no-op function
+	console = {
+		log: noOp,
+		warn: noOp,
+		error: noOp
+	}
+}
+
 // Logging function that accounts for browsers that don't have window.console
 function log() {
   if (window.console) console.log.apply(console,arguments);
@@ -130,7 +139,7 @@ var Docs = {
 			$('.resource ul.endpoints').slideDown();
 			return;
 		}
-		
+
 		$('li#resource_' + resource).addClass('active');
 
 		var elem = $('li#resource_' + resource + ' ul.endpoints');
@@ -170,7 +179,7 @@ var Docs = {
 	expandOperationsForResource: function(resource) {
 		// Make sure the resource container is open..
 		Docs.expandEndpointListForResource(resource);
-		
+
 		if (resource == '') {
 			$('.resource ul.endpoints li.operation div.content').slideDown();
 			return;
