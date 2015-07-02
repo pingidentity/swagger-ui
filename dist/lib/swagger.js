@@ -363,12 +363,27 @@
       return this.api.selfReflect();
     };
 
+    function getParentModel(models, modelName) {
+      var _modelsWithSubtypes = _.filter(models, function(m){ return m.subTypes && m.subTypes.length > 0 });
+      for(var _k = 0; _k < _modelsWithSubtypes.length; _k++) {
+        var subType = _.find(_modelsWithSubtypes[_k].subTypes, function(m) {
+          if(modelName === m) {
+            return m;
+          }
+        });
+        if(subType) {
+          return _modelsWithSubtypes[_k];
+        }
+      }
+      return null;
+    };
+
     SwaggerResource.prototype.addModels = function(models) {
       var model, modelName, swaggerModel, _i, _len, _ref, _results, _mapModel, _mapModelName, _modelWithMap;
       if (models != null) {
         for (modelName in models) {
           if (this.models[modelName] == null) {
-            swaggerModel = new SwaggerModel().create(modelName, models[modelName]);
+            swaggerModel = new SwaggerModel().create(modelName, models[modelName], getParentModel(models, modelName));
             this.modelsArray.push(swaggerModel);
             this.models[modelName] = swaggerModel;
           }
@@ -378,7 +393,7 @@
            if(_modelWithMap.mapModels != null) {
             for(_i = 0, _len = _modelWithMap.mapModels.length; _i < _len; _i++){
             	   _mapModelName = _modelWithMap.mapModels[_i];
-            	   _mapModel = new SwaggerModel().createMapModel(_mapModelName, this.models);            
+            	   _mapModel = new SwaggerModel().createMapModel(_mapModelName, this.models);
                    this.modelsArray.push(_mapModel);
                    this.models[_mapModelName.name] = _mapModel;
                }
@@ -476,10 +491,11 @@
       this.mapModels = [];
       this.subTypes = [];
     }
-     SwaggerModel.prototype.create = function (modelName, obj) {
+     SwaggerModel.prototype.create = function (modelName, obj, parentModel) {
       var prop, propertyName, value, _i, _subTypeName, _reg,_mapValueModelName,_refMapValueType, _mapModel;
       this.name = obj.id != null ? obj.id : modelName;
       this.desc = obj.description;
+      this.parentName = parentModel && parentModel.id;
        _reg = new RegExp('map\\[(.*)\\]', 'gi');
       this.desc = obj.description
       for (propertyName in obj.properties) {
@@ -513,7 +529,7 @@
     
     SwaggerModel.prototype.createMapModel = function (mapElement, objs){
        this.id = mapElement.name;
-       this.name = mapElement.name;  
+       this.name = mapElement.name;
        this.isMapKeyModel = true;
        this.type = "key";
        prop = new SwaggerModelProperty(this.type, objs[mapElement.mapValueModelName]);
@@ -564,7 +580,7 @@
     };
 
     SwaggerModel.prototype.getMockSignature = function(modelsToIgnore) {
-      var classClose, classOpen, prop, propertiesStr, subType, returnVal, strong, strongClose, stronger, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+      var classClose, classOpen, prop, propertiesStr, subType, returnVal, strong, strongClose, stronger, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, parentClass;
       propertiesStr = [];
       _ref = this.properties;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -576,7 +592,8 @@
       stronger = '<span class="stronger">';
       strongClose = '</span>';
       weakClose = strongClose;
-      classOpen = this.desc != null ? strong + this.name + strongClose + weak + ' - ' + this.desc + weakClose + strong + ' {' + strongClose : strong + this.name + ' {' + strongClose;
+      parentClass = this.parentName ? " : " + this.parentName : "";
+      classOpen = this.desc != null ? strong + this.name + parentClass + strongClose + weak + ' - ' + this.desc + weakClose + strong + ' {' + strongClose : strong + this.name + ' {' + strongClose;
       classClose = strong + '}' + strongClose;
       returnVal = classOpen + '<div>' + propertiesStr.join('</div><div>') + '</div>' + classClose;
       if (!modelsToIgnore) {
