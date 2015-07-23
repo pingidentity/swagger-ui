@@ -1521,6 +1521,11 @@ body ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operatio
     text-decoration: underline;
 }
 
+body ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.path a.deprecated {
+    color: #666666;
+    text-decoration: line-through;
+}
+
 body ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.delete div.heading ul.options {
     overflow: hidden;
     padding: 0;

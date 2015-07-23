@@ -447,7 +447,7 @@
             responseMessages = o.errorResponses;
           }
           o.nickname = this.sanitize(o.nickname);
-          op = new SwaggerOperation(o.nickname, resource_path, method, o.parameters, o.summary, o.notes, type, responseMessages, this, consumes, produces);
+          op = new SwaggerOperation(o.nickname, resource_path, method, o.parameters, o.summary, o.notes, type, responseMessages, this, consumes, produces, o.deprecated);
           this.operations[op.nickname] = op;
           _results.push(this.operationsArray.push(op));
         }
@@ -752,7 +752,7 @@
   })();
 
   SwaggerOperation = (function() {
-    function SwaggerOperation(nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces) {
+    function SwaggerOperation(nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces, deprecated) {
       var parameter, v, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3, _modelsToIgnore = [],
         _this = this;
       this.nickname = nickname;
@@ -766,6 +766,7 @@
       this.resource = resource;
       this.consumes = consumes;
       this.produces = produces;
+      this.deprecated = deprecated;
       this["do"] = __bind(this["do"], this);
       if (this.nickname == null) {
         this.resource.api.fail("SwaggerOperations must have a nickname.");
