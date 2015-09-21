@@ -54,6 +54,7 @@
         this.success = options.success;
       }
 
+      this.apisSorter = options.apisSorter;
       this.failure = options.failure != null ? options.failure : function() {};
       this.progress = options.progress != null ? options.progress : function() {};
     }

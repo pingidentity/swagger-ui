@@ -1759,6 +1759,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   })(Backbone.View);
 
   MainView = (function(_super) {
+    var apisSorters, operationsSorters;
+
     __extends(MainView, _super);
 
     function MainView() {
@@ -1766,7 +1768,62 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       return _ref2;
     }
 
-    MainView.prototype.initialize = function() {};
+    apisSorters = {
+      'alpha': function(a, b) {
+        return a.name.localeCompare(b.name);
+      }
+    };
+    operationsSorters = {
+      'alpha': function(a, b) {
+        return a.path.localeCompare(b.path);
+      },
+      'method': function(a, b) {
+        return a.method.localeCompare(b.method);
+      }
+    };
+
+
+    MainView.prototype.initialize = function(opts) {
+        var auth, key, value, sorterName, sorter, _i, _len, _ref, _ref1;
+        if (opts == null) {
+          opts = {};
+        }
+
+        if (opts.model.apisSorter) {
+          sorterName = opts.model.apisSorter;
+          if (typeof sorterName === "function") {
+            sorter = sorterName;
+          } else {
+            sorter = apisSorters[sorterName];
+          }
+          opts.model.apisArray.sort(sorter);
+        }
+        if (opts.model.operationsSorter) {
+          sorterName = opts.model.operationsSorter;
+          if (typeof sorterName === "function") {
+            sorter = sorterName;
+          } else {
+            sorter = operationsSorters[sorterName];
+          }
+          _ref1 = opts.model.apisArray;
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            _ref1[_i].operationsArray.sort(sorter);
+          }
+        }
+
+        this.model.auths = [];
+        _ref = this.model.securityDefinitions;
+        for (key in _ref) {
+          value = _ref[key];
+          auth = {
+            name: key,
+            type: value.type,
+            value: value
+          };
+          this.model.auths.push(auth);
+        }
+      };
+
 
     MainView.prototype.render = function() {
       var resource, _i, _len, _ref3;
