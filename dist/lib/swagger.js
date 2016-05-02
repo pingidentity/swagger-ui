@@ -480,7 +480,7 @@
       this.subTypes = [];
     }
      SwaggerModel.prototype.create = function (modelName, obj, parentModel) {
-      var prop, propertyName, value, _i, _subTypeName, _reg, _mapValueModelName, _refMapValueType;
+      var prop, propertyName, value, _i, _subTypeName, _reg, _refMapValueType;
       this.name = obj.id != null ? obj.id : modelName;
       this.desc = obj.description;
       this.parentName = parentModel && parentModel.id;
@@ -641,9 +641,8 @@
       mapPattern = _reg.exec(this.dataType);
       if (mapPattern != null && mapPattern.length > 1)
       {
-      	this.isMap = true;
-      	_mapValueModelName = mapPattern[1].split(',').pop();
-      	this.refDataType = _mapValueModelName;
+      	this.isMap = true;     	
+      	this.refDataType = mapPattern[1].split(',').pop();
       }
       
       this.setEnumValues(obj["enum"]);
@@ -659,7 +658,7 @@
           jsonModel = new SwaggerModel().createMapModel("key", this.refDataType, mapRefModels);
         }
         else {
-          mapRefModels[_mapValueModelName]=this.refModel;  
+          mapRefModels[this.refDataType]=this.refModel;  
           jsonModel = new SwaggerModel().createMapModel("key", this.refModel.name, mapRefModels);
         }
       }
