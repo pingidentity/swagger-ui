@@ -2303,8 +2303,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         code = $('<code />').text("no content");
         pre = $('<pre class="json" />').append(code);
       } else if (contentType === "application/json" || /\+json$/.test(contentType)) {
-        code = $('<code />').text(JSON.stringify(JSON.parse(content), null, "  "));
-        pre = $('<pre class="json" />').append(code);
+        if (content.length > 150000) {
+          code = $('<code />').text("Response is too large to be displayed.");
+          pre = $('<pre class="json" />').append(code);
+        } else {
+          code = $('<code />').text(JSON.stringify(JSON.parse(content), null, "  "));
+          pre = $('<pre class="json" />').append(code);
+        }
       } else if (contentType === "application/xml" || /\+xml$/.test(contentType)) {
         code = $('<code />').text(this.formatXml(content));
         pre = $('<pre class="xml" />').append(code);
